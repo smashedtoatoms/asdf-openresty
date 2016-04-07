@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+versions_list=(
+  1.9.7.3
+)
+
+versions=""
+
+for version in "${versions_list[@]}"
+do
+  versions="${versions} ${version}"
+done
+
+echo $versions
