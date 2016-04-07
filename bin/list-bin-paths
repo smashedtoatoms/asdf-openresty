@@ -1,1 +1,3 @@
-bin nginx/sbin
+#!/usr/bin/env bash
+
+echo "bin nginx/sbin"

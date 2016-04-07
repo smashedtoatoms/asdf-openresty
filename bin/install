@@ -27,7 +27,7 @@ install_openresty() {
     unset ASDF_PKG_MISSING
 
     echo "Building with options: $configure_options"
-    ./configure $configure_options || exit 1
+    eval "./configure $configure_options" || exit 1
     make || exit 1
     make install || exit 1
   )
@@ -78,7 +78,7 @@ os_based_configure_options() {
     local pcre_path=$(homebrew_package_path pcre)
   else
     local openssl_path=/usr
-    local pcre_path=$(homebrew_package_path pcre)
+    local pcre_path=/usr
   fi
 
   if [ "$openssl_path" = "" ]; then
@@ -86,7 +86,7 @@ os_based_configure_options() {
   elif [ "$pcre_path" = "" ]; then
     export ASDF_PKG_MISSING="pcre"
   else
-    configure_options="$configure_options --with-cc-opt=\"-I$openssl_path/include/ -I$pcre_path/include/\" --with-ld-opt=\"-L$openssl_path/lib/ -L$pcre_path/lib/\""
+    configure_options="$configure_options --with-cc-opt=\"-I$openssl_path/include/ -I$pcre_path/include/\" --with-ld-opt=\"-L$openssl_path/lib/ -L$pcre_path/lib/\" -j8"
   fi
 
   echo $configure_options
