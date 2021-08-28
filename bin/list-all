@@ -1,26 +1,10 @@
 #!/usr/bin/env bash
 
-versions_list=(
-  1.9.15.1
-  1.11.2.1
-  1.11.2.2
-  1.11.2.3
-  1.11.2.4
-  1.11.2.5
-  1.13.6.2
-  1.15.8.1
-  1.15.8.2
-  1.15.8.3
-  1.17.8.1
-  1.17.8.2
-  1.19.3.1
-)
+#!/usr/bin/env bash
 
-versions=""
+# Get all tags from https://github.com/openresty/openresty.
+tags=$(curl https://api.github.com/repos/openresty/openresty/git/refs/tags 2> /dev/null)
 
-for version in "${versions_list[@]}"
-do
-  versions="${versions} ${version}"
-done
+# Output all available tags matched asdf-vm version format.
+echo $tags | grep -oP 'refs\/tags\/v\K([^"]+)'
 
-echo $versions
